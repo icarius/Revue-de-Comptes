@@ -43,7 +43,8 @@ class Github_updater
     {
         $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/commits'));
         //return $branches[0]->commit->sha !== $this->ci->config->item('current_commit');
-        return $branches[0]->sha !== $this->ci->config->item('current_commit');
+        $branches[0]->sha[0] !== $this->ci->config->item('current_commit');
+        return $branches[0]->sha[0];
     }
 
     /**
