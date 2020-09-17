@@ -41,7 +41,7 @@ class Github_updater
      */
     public function has_update()
     {
-        $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/branches/'.$this->ci->config->item('github_branch')));
+        $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/branches'));
         return $branches[0]->commit->sha !== $this->ci->config->item('current_commit');
     }
 
@@ -54,7 +54,7 @@ class Github_updater
     public function get_update_comments()
     {
         //$branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/commits'));
-        $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/branches/'.$this->ci->config->item('github_branch')));
+        $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/branches'));
         $hash = $branches[0]->commit->sha;
         if($hash !== $this->ci->config->item('current_commit'))
         {
@@ -75,7 +75,7 @@ class Github_updater
      */
     public function update()
     {
-        $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/branches/'.$this->ci->config->item('github_branch')));
+        $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/branches'));
         $hash = $branches[0]->commit->sha;
         if($hash !== $this->ci->config->item('current_commit'))
         {
@@ -160,11 +160,12 @@ class Github_updater
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC ) ;
-        curl_setopt($ch, CURLOPT_SSLVERSION,3);
+        //curl_setopt($ch, CURLOPT_SSLVERSION,3);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+        curl_setopt($ch, CURLOPT_USERAGENT, "StackOverflow-29845346"); 
 
         $response = curl_exec($ch);
 
