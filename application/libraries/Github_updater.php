@@ -53,7 +53,7 @@ class Github_updater
      */
     public function get_update_comments()
     {
-        $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/branches'));
+        $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/commits'));
         $hash = $branches[0]->commit->sha;
         if($hash !== $this->ci->config->item('current_commit'))
         {
@@ -74,7 +74,7 @@ class Github_updater
      */
     public function update()
     {
-        $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/branches'));
+        $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/commits'));
         $hash = $branches[0]->commit->sha;
         if($hash !== $this->ci->config->item('current_commit'))
         {
