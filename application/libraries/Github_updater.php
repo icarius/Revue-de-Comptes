@@ -42,7 +42,8 @@ class Github_updater
     public function has_update()
     {
         $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/commits'));
-        return $branches[0]->commit->sha !== $this->ci->config->item('current_commit');
+        //return $branches[0]->commit->sha !== $this->ci->config->item('current_commit');
+        return $branches[0]->sha !== $this->ci->config->item('current_commit');
     }
 
     /**
@@ -54,7 +55,8 @@ class Github_updater
     public function get_update_comments()
     {
         $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/commits'));
-        $hash = $branches[0]->commit->sha;
+        //$hash = $branches[0]->commit->sha;
+        $hash = $branches[0]->sha;
         if($hash !== $this->ci->config->item('current_commit'))
         {
             $messages = array();
@@ -75,7 +77,8 @@ class Github_updater
     public function update()
     {
         $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/commits'));
-        $hash = $branches[0]->commit->sha;
+        //$hash = $branches[0]->commit->sha;
+        $hash = $branches[0]->sha;
         if($hash !== $this->ci->config->item('current_commit'))
         {
             $commits = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/compare/'.$this->ci->config->item('current_commit').'...'.$hash));
