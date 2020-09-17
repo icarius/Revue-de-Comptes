@@ -18,18 +18,17 @@
             <a class="navbar-brand" href="<?php echo site_url() ?>"><?php echo $this->config->item('site_name'); ?></a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
-            <!--<form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-                <div class="input-group">
+            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                <!--<div class="input-group">
                     <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
                     </div>
-                </div>
-            </form> -->
+                </div> -->
+            </form> 
             <!-- Navbar-->
             <ul class="navbar-nav ml-auto ml-md-0">
-				<?php if($git_update){
-                echo'<li class="nav-item dropdown">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">Update dispo</a>
@@ -37,9 +36,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="login.html">Logout</a>
                     </div>
-                </li>';
-				}
-				?>
+                </li>
             </ul>
         </nav>
         <div id="layoutSidenav">
@@ -63,10 +60,10 @@
                             </a>
                         </div>
                     </div>
-                    <!--<div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small" id="result">Logged in as:</div>
                         Start Bootstrap
-                    </div> -->
+                    </div> 
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -103,6 +100,8 @@
 <script>
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
+  requetAjax();
+  setInterval(requetAjax(),6000);  
   $('.table-bordered').dataTable( {
 	"paging": false,
 	"stateSave": true,
@@ -125,4 +124,17 @@ $(document).ready(function() {
 	});  
   
 });
+</script>
+
+<script>
+  function requetAjax(){
+      $.ajax({
+        method:'get',
+        cache: false,
+        url:'<?php echo base_url('Check_Update/index'); ?>',
+        success:function(data){
+          $("#result").html(data);
+        }
+      });
+  }
 </script>
