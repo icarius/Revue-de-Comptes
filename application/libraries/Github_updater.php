@@ -41,7 +41,7 @@ class Github_updater
      */
     public function has_update()
     {
-        $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/branches'));
+        $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/commits'));
         return $branches[0]->commit->sha !== $this->ci->config->item('current_commit');
     }
 
