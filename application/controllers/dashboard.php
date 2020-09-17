@@ -8,7 +8,7 @@ class Dashboard extends CI_Controller {
 
         // Load member model
 		$this->load->library('Github_updater');
-        $this->output->enable_profiler(FALSE);
+        //$this->output->enable_profiler(FALSE);
     }
     
     public function index(){
@@ -22,4 +22,4 @@ class Dashboard extends CI_Controller {
 	}	
 	
 }
-?>	
+	
