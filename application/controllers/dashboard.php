@@ -7,8 +7,6 @@ class Dashboard extends CI_Controller {
         parent::__construct();
 
         // Load member model
-        $this->load->model('Rh_models', 'models');
-        $this->load->library('Csvimport');
 		$this->load->library('Github_updater');
         $this->output->enable_profiler(FALSE);
     }
@@ -16,5 +14,12 @@ class Dashboard extends CI_Controller {
     public function index(){
 		$data['breadcrumb'] = "";
         $data['_view'] = 'welcome_message';
+		$data['git_update'] =  $this->github_updater->has_update();
+		if($data['git_update']){
+				$data['success'] = $this->github_updater->update();
+		}	
         $this->load->view('layouts/main2',$data);
 	}	
+	
+}
+?>	
