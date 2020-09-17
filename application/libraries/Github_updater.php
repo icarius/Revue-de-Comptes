@@ -97,7 +97,8 @@ class Github_updater
                 //Clean up
                 if($this->ci->config->item('clean_update_files'))
                 {
-                    shell_exec("rm -rf {$dir}");
+                    //shell_exec("rm -rf {$dir}");
+                    rmdir("{$dir}");
                     unlink("{$hash}.zip");
                 }
                 //Update the current commit hash
@@ -141,7 +142,12 @@ class Github_updater
     private function _get_and_extract($hash)
     {
         copy(self::GITHUB_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/zipball/'.$this->ci->config->item('github_branch'), "{$hash}.zip");
-        shell_exec("unzip {$hash}.zip");
+        //("unzip {$hash}.zip");
+        $zip = "{$hash}.zip";
+        $unzipper = new ZipArchive;
+        $unzipper->open($zip);
+        $unzipper->extractTo('.');
+        $unzipper->close();
         $files = scandir('.');
         foreach($files as $file)
             if(strpos($file, $this->ci->config->item('github_user').'-'.$this->ci->config->item('github_repo')) !== FALSE)return $file;
