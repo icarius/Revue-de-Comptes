@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					echo'Nouvelle version existante';
 				}
                 ?> 
-<?php if($sucess){
+<?php if($success){
 					echo'Nouvelle version mis a jour';
 				}
                 ?>				
