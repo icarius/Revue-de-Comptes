@@ -12,11 +12,8 @@ class Check_Update extends CI_Controller {
     }
     
     public function index(){
-		$data['breadcrumb'] = "Check Mise à jour";
-        $data['_view'] = 'welcome_message';
-		$data['git_update'] =  $this->github_updater->has_update();
-
-        $this->load->view('layouts/main2',$data);
+        $git_update = $this->github_updater->has_update();
+        if($git_update) {echo "MAJ dispo"; }
 	}	
 
 }
