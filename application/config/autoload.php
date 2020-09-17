@@ -103,7 +103,7 @@ $autoload['helper'] = array('security','form','url','file','html');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array('app_config');
+$autoload['config'] = array('app_config','Github_updater');
 
 /*
 | -------------------------------------------------------------------
