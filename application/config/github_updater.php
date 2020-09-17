@@ -21,7 +21,7 @@ $config['github_branch'] = 'master';
  * NOTE: You should only need to set this initially it will be
  * automatically set by the library after subsequent updates.
  */
-$config['current_commit'] = '';
+$config['current_commit'] = '84c59840369ff2f9e60cdbc25e9a75d1d6f8d886';
 
 
 /**
