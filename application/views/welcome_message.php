@@ -9,13 +9,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <p><?php echo $result; ?></p>
-                <p><?php echo $_SERVER['AUTH_USER']; ?></p>
-                <p>Welcome <?php echo $this->session->userdata('domain'); ?>\<?php echo $this->session->userdata('samaccountname'); ?> - <?php echo $this->session->userdata('displayname'); ?> - <?php echo $this->session->userdata('mail'); ?> - <?php echo $this->session->userdata('expire'); ?></p>
 
-		          <p>Compte admin : <?php echo $this->session->userdata('inGroup'); ?></p>
-                  <p><?php var_dump($this->session->userdata('Group')); ?></p>
-                  
+                <p>Welcome</p>
+				<?php if($git_update){
+					echo'Nouvelle version existante';
+				}
+                ?> 
+<?php if($sucess){
+					echo'Nouvelle version mis a jour';
+				}
+                ?>				
               </div>
             </div>
             <div class="card-footer small text-muted">&nbsp;</div>
