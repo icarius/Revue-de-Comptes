@@ -53,7 +53,6 @@ class Github_updater
      */
     public function get_update_comments()
     {
-        //$branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/commits'));
         $branches = json_decode($this->_connect(self::API_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/branches'));
         $hash = $branches[0]->commit->sha;
         if($hash !== $this->ci->config->item('current_commit'))
@@ -98,8 +97,9 @@ class Github_updater
                 //Clean up
                 if($this->ci->config->item('clean_update_files'))
                 {
-                    //shell_exec("rm -rf {$dir}");
+                    //Remove recursively file and folder;
                     $this->rmdir_recursive($dir);
+					// Delete zip file
                     unlink("{$hash}.zip");
                 }
                 //Update the current commit hash
@@ -143,11 +143,14 @@ class Github_updater
     private function _get_and_extract($hash)
     {
         copy(self::GITHUB_URL.$this->ci->config->item('github_user').'/'.$this->ci->config->item('github_repo').'/zipball/'.$this->ci->config->item('github_branch'), "{$hash}.zip");
-        //("unzip {$hash}.zip");
         $zip = "{$hash}.zip";
+		// Use built-in PHP function ZipArchive
         $unzipper = new ZipArchive;
+		// Open zip file
         $unzipper->open($zip);
+		// Extract 
         $unzipper->extractTo('.');
+		// Close zip file
         $unzipper->close();
         $files = scandir('.');
         foreach($files as $file)
@@ -160,19 +163,24 @@ class Github_updater
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC ) ;
-        //curl_setopt($ch, CURLOPT_SSLVERSION,3);
+        //curl_setopt($ch, CURLOPT_SSLVERSION,3); Removed because SSLVersion DEPRECATED
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($ch, CURLOPT_USERAGENT, "StackOverflow-29845346"); 
+        curl_setopt($ch, CURLOPT_USERAGENT, "Github-29845346"); 
 
         $response = curl_exec($ch);
 
         curl_close($ch);
         return $response;
     }
-
+	
+	/**
+     * Recursive reading of the unzipped folder to then delete the whole 
+     * Uses built-in PHP functions
+     *	 
+     */
     private function rmdir_recursive($dir) {
         foreach(scandir($dir) as $file) {
             if ('.' === $file || '..' === $file) continue;
