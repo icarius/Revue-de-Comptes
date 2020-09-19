@@ -58,6 +58,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Infos AD
                             </a>
+                            <a class="nav-link" href="<?php echo site_url() ?>PCPass">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Infos PCPass
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
