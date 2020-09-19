@@ -13,7 +13,7 @@ class Check_Update extends CI_Controller {
     
     public function index(){
         $git_update = $this->github_updater->has_update();
-        if($git_update) {echo "MAJ dispo"; }
+        if($git_update) {echo "MAJ Outil dispo"; }
 	}	
 
 }
