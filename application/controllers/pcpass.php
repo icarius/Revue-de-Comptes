@@ -28,10 +28,6 @@ class PCPass extends CI_Controller {
             $data['absents'] = $this->session->userdata('absents');
             $this->session->unset_userdata('absents');
         }
-		if($this->session->userdata('lastLogon')){
-            $data['lastLogon'] = $this->session->userdata('lastLogon');
-            $this->session->unset_userdata('lastLogon');
-        }
 		if($this->session->userdata('inactiveAccount')){
             $data['inactiveAccount'] = $this->session->userdata('inactiveAccount');
             $this->session->unset_userdata('inactiveAccount');
